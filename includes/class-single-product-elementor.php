@@ -217,27 +217,31 @@ class DTWCBE_Single_Product_Elementor{
 						$gallery_slider_style,
 						$gallery_thumbs_vertical,
 					) );
+
+					console('1');
 					?>
 					<div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
 							<?php 
+							console('2');
 							if ( $product->get_image_id() ) {
-								echo '<div id="product-image-slider" class="slider-for woocommerce-product-gallery__wrapper">';
+								//echo '<div id="product-image-slider" class="slider-for woocommerce-product-gallery__wrapper">';
 								$data_attachment = wc_get_product_attachment_props($post_thumbnail_id);
-								 
-								echo '<div class="woocommerce-product-gallery__image single-product-main-image"><a class="venobox" title="'.$data_attachment['title'].'" data-gall="product-image-lightbox" href="'.$data_attachment['url'].'" data-thumb="'.$data_attachment['gallery_thumbnail_src'].'">' . $image . '</a></div> ';
+								console('$product->get_image_id()');
+								// echo '<div class="woocommerce-product-gallery__image single-product-main-image"><a class="venobox" title="'.$data_attachment['title'].'" data-gall="product-image-lightbox" href="'.$data_attachment['url'].'" data-thumb="'.$data_attachment['gallery_thumbnail_src'].'">' . $image . '</a></div> ';
 								
 								if ($attachment_ids) {
 									foreach ($attachment_ids as $attachment_id) {
 										$thumbnail_image    = wp_get_attachment_image($attachment_id, $image_size);
 										$data_attachment 		= wc_get_product_attachment_props($attachment_id);
 										
-										echo '<a class="venobox" data-gall="product-image-lightbox" title="'.$data_attachment['title'].'" href="'.$data_attachment['url'].'" data-thumb="'.$data_attachment['gallery_thumbnail_src'].'">' . $thumbnail_image . '</a>';
+										// echo '<a class="venobox" data-gall="product-image-lightbox" title="'.$data_attachment['title'].'" href="'.$data_attachment['url'].'" data-thumb="'.$data_attachment['gallery_thumbnail_src'].'">' . $thumbnail_image . '</a>';
 								
 									}
 								}
-								echo "</div>";
+								// echo "</div>";
 								
 							} else {
+								console('not $product->get_image_id()');
 								$html  = '<div class="woocommerce-product-gallery__image--placeholder">';
 								$html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
 								$html .= '</div>';
@@ -246,7 +250,10 @@ class DTWCBE_Single_Product_Elementor{
 							//echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 						
 							$post_thumbnail_id = $product->get_image_id();
-							$image_size        = apply_filters( 'woocommerce_gallery_image_size','woocommerce_single');
+
+							//moein change size image
+							// $image_size        = apply_filters( 'woocommerce_gallery_image_size','woocommerce_single');
+							$image_size        = apply_filters( 'woocommerce_gallery_image_size','full');
 							
 							if( dtwcbe_woocommerce_version_check() ) {
 								// Use new, updated functions
@@ -256,37 +263,96 @@ class DTWCBE_Single_Product_Elementor{
 								$attachment_ids = $product->get_gallery_attachment_ids() ;
 							}
 							//moein added (
+
+
+								
+    						// echo '<img src="' . $image_main[0] . '"/>';
+
 							$moein_style = '
 							<style>
-							.moein-product-gallery img{
-								max-height:50px;
-							}
-							.moein_item_gallery{
-								width: 50px !important;
-								border-radius: 5px;
-							}
+							
 							</style>
 							
 							';
+
+							console('3');
 							echo $moein_style;
+							echo style_slider();
 							//moein )
 							if ( $attachment_ids && has_post_thumbnail($product_id) ) {
 								//moein class added
-								echo '<div class="moein-product-gallery slider-nav" id="product-thumbnails-carousel">';
+								// echo '<div class="moein-product-gallery slider-nav" id="product-thumbnails-carousel">';
 								$image         	= wp_get_attachment_image($post_thumbnail_id, $image_size,true);
 								$data_attachment 	= wc_get_product_attachment_props($post_thumbnail_id);
-								//image slider active
-								echo '<div class="moein_item_gallery"><a class="woocommerce-product-gallery__image--thumbnail" title="'.$data_attachment['title'].'" data-href="'.$data_attachment['url'].'" data-gall="product-image-thumbs">'.$image.'</a></div>';
-							
+								
+								console('image');
+								console($image);
+								//image slider active main image
+								//echo '<div class="moein_item_gallery"><a class="woocommerce-product-gallery__image--thumbnail" title="'.$data_attachment['title'].'" data-href="'.$data_attachment['url'].'" data-gall="product-image-thumbs">'.$image.'</a></div>';
+								
+								//Open Main Div Slider
+								echo '<div class="woo-slider-img">';
+								
+								//Add main image to slider
+								echo '
+								<div class="mySlides img-size">
+									' . $image . '
+								</div>
+								';
+
+								
+								//Add gallery image to slider
 								foreach ( $attachment_ids as $attachment_id ) {
+									$image_size="full";
+									// console($image_size);
 									$thumbnail_image    = wp_get_attachment_image($attachment_id, $image_size);
 									$data_attachment   		= wc_get_product_attachment_props($attachment_id);
-							
-									echo '<div class="moein_item_gallery"><a title="'.$data_attachment['title'].'" data-href="'.$data_attachment['url'].'" data-gall="product-image-thumbs">' . $thumbnail_image . '</a></div>';
+									
+									// console("thumbnail_image");
+									// console($thumbnail_image);
+									
+									// class: moein_item_gallery
+									// echo '<div class="mySlides">';
+									echo '<div class="mySlides img-size"><a title="'.$data_attachment['title'].'" data-href="'.$data_attachment['url'].'" data-gall="product-image-thumbs">' . $thumbnail_image . '</a></div>';
+									// echo "</div>";
 								}
-								echo "</div>";
+
+								// add < > slider
+								echo '
+								<div class="moein_plusSlides">
+								<a class="prev" onclick="plusSlides(-1)">❮</a>
+								<a class="next" onclick="plusSlides(1)">❯</a>
+								</div>
+								';
+
+								echo '<div class="row">';
+
+
+								//add class: demo cursor
+								$image_main_slider = str_replace('class="','onclick="currentSlide(1)" class="demo cursor ',$image);
+								echo '
+								<div class="column">
+									' . $image_main_slider .'
+								</div>
+								';
+								$i = 2;
+								foreach ( $attachment_ids as $attachment_id ) {
+									$thumbnail_image    = wp_get_attachment_image($attachment_id, $image_size);
+
+									//add class: demo cursor
+									$thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
+									echo '<div class="column">' . $thumbnail_image . '</div>';
+									$i++;
+								}
+
+								echo '</div>';
+							}else{
+								//show img one img
+								$image_main = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'single-post-thumbnail' );
+								echo '<div class="woo-slider-img"><div class="mySlides img-size"><img src="' . $image_main[0] . '"/> </div></div>';
 							}
-							
+							console('4');
+							echo script_slider();
 						?>
 						<script>
 							jQuery(document).ready(function(){
@@ -697,6 +763,199 @@ class DTWCBE_Single_Product_Elementor{
 		}
 		return $classes;
 	}
+}
+
+// function console($str){
+// 	echo '
+// 	<script>
+// 	console.log("' . $str . '");
+// 	</script>
+// 	';
+// }
+
+
+function script_slider($tag_html = true){
+	$return_script = '
+		window.addEventListener("load", function() {
+			
+		})
+		let slideIndex = 1;
+		showSlides(slideIndex);
+
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
+
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+			let i;
+			let slides = document.getElementsByClassName("mySlides");
+			let dots = document.getElementsByClassName("demo");
+			let captionText = document.getElementById("caption");
+
+			if (n > slides.length) {slideIndex = 1}
+			if (n < 1) {slideIndex = slides.length}
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			try{
+			slides[slideIndex-1].style.display = "block";
+			dots[slideIndex-1].className += " active";
+			captionText.innerHTML = dots[slideIndex-1].alt;
+			}catch(e){}
+		}
+	';
+	
+	if ($tag_html) 
+		return '<script>' . $return_script . '</script>';
+	else
+		return $return_script;
+}
+function style_slider ($tag_html = true) {
+	$return_style = '
+		/* Position the image woo-slider-img (needed to position the left and right arrows) */
+		.woo-slider-img {
+		
+		position: relative;
+		}
+
+		/* Hide the images by default */
+		.mySlides {
+		display: none;
+		}
+
+		/* Add a pointer when hovering over the thumbnail images */
+		.cursor {
+		cursor: pointer;
+		}
+
+		/* Next & previous buttons */
+		/*
+		.prev,
+		.next {
+		cursor: pointer;
+		position: absolute;
+		top: 40%;
+		width: auto;
+		padding: 16px;
+		margin-top: -50px;
+		color: white;
+		font-weight: bold;
+		font-size: 20px;
+		border-radius: 0 3px 3px 0;
+		user-select: none;
+		-webkit-user-select: none;
+		}
+		*/
+		.prev,
+		.next {
+			cursor: pointer;
+			position: absolute;
+			top: 40%;
+			font-size: 20px;
+			-webkit-user-select: none;
+			color: #101010 !important;
+			background: #EDEDED;
+			border-radius: 25px !important;
+			padding: 7px 17px 5px 17px;
+			margin: 0px 10px;
+			transition: 1s;
+		}
+
+		/* Position the "next button" to the right */
+		.next {
+		left: 0;
+		border-radius: 3px 0 0 3px;
+		}
+
+		/* On hover, add a black background color with a little bit see-through */
+		.prev:hover,
+		.next:hover {
+		// background-color: rgba(0, 0, 0, 0.8);
+		background-color: #96969699 !important;
+		color: #101010 !important;
+		}
+
+		/* Number text (1/3 etc) */
+		.numbertext {
+		color: #f2f2f2;
+		font-size: 12px;
+		padding: 8px 12px;
+		position: absolute;
+		top: 0;
+		}
+
+		/* woo-slider-img for image text */
+		/* .caption-container {
+		text-align: center;
+		background-color: #222;
+		padding: 2px 16px;
+		color: white;
+		} */
+
+		.row:after {
+		content: "";
+		display: table;
+		clear: both;
+		}
+
+		.row{
+			position: absolute;
+			bottom: 10px;
+			left: 20%;
+			right: 20%;
+			/* border: 1px solid red; */
+			display: flex;
+			justify-content: center;    
+		}
+		/* Six columns side by side */
+		.column {
+			/* position: absulot;
+		float: left; */
+		width: 10%;
+		padding: 2px;
+		
+		}
+
+		/* Add a transparency effect for thumnbail images */
+		.demo {
+		opacity: 0.6;
+		border-radius: 3px !important;
+		height: 100% !important;
+		}
+
+		.active,
+		.demo:hover {
+		opacity: 1;
+		box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.1);
+		}
+		.img-size img{
+			height: 500px !important;
+			width: 100% !important;
+			border-radius: 15px;
+		}
+		/*
+		.moein-product-gallery img{
+			max-height:50px;
+		}
+		.moein_item_gallery{
+			width: 50px !important;
+			border-radius: 5px;
+		}
+		*/
+
+	';
+
+	if ($tag_html) 
+		return '<style>' . $return_style . '</style>';
+	else
+		return $return_style;
 }
 
 DTWCBE_Single_Product_Elementor::instance();
