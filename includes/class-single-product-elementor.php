@@ -936,7 +936,7 @@ function style_slider ($tag_html = true) {
 		box-shadow: 1px 1px 10px 10px rgba(128, 128, 128, 0.1);
 		}
 		.img-size img{
-			height: 500px !important;
+			max-height: 500px !important;
 			width: 100% !important;
 			border-radius: 15px;
 		}
