@@ -1,12 +1,10 @@
 <?php
 /**
-* Plugin Name: WooCommerce Page Builder For Elementor
-* Plugin URI: https://1.envato.market/NJNQK
-* Description: is the ideal Elementor add-on to effortlessly layout for WooCommerce and more.
-* Version: 1.1.6.6.2
-* Author: DawnThemes 
-* Author URI: https://codecanyon.net/user/dawnthemes
-* Copyright @2019 by DawnThemes
+* Plugin Name: WooCommerce Page Builder For Elementor(Eight)
+* Description: اختصاصی شده افزونه WooCommerce Page Builder For Elementor
+* Version: 1.1
+* Author: Eight
+* Author URI: https://eightco.org
 * License: License GNU General Public License version 2 or later
 * Text-domain: woocommerce-builder-elementor
 * WC tested up to: 6.3.1
@@ -14,6 +12,15 @@
 * @package WooCommerce-Builder-Elementor
 */
 
+function moein(){
+	echo'
+	<input id="moein" type="text" value="By Moein Qorbani - https://Sitetik.ir" hidden> 
+	<script>
+	 //console.log("By Moein Qorbani - https://Sitetik.ir"); 
+	</script>
+	';
+}
+add_action( 'wp_footer', 'moein');
 // don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
