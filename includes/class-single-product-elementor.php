@@ -186,6 +186,7 @@ class DTWCBE_Single_Product_Elementor{
 		switch ( $element ){
 			case 'single-product-images':
 				ob_start();
+				// $GLOBALS['moein-dev'] = true;
 				$product_gallery_type = $settings['product_gallery_type']; // Theme default || Gallery Slider ( Horizontal - Vertical )
 				
 				if( $product_gallery_type == 'gallery-slider' ){
@@ -242,9 +243,11 @@ class DTWCBE_Single_Product_Elementor{
 								
 							} else {
 								console('not $product->get_image_id()');
+								// console('not $product->get_image_id()');
 								$html  = '<div class="woocommerce-product-gallery__image--placeholder">';
 								$html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
 								$html .= '</div>';
+								
 							}
 					
 							//echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
@@ -268,18 +271,12 @@ class DTWCBE_Single_Product_Elementor{
 								
     						// echo '<img src="' . $image_main[0] . '"/>';
 
-							$moein_style = '
-							<style>
-							
-							</style>
-							
-							';
 
 							console('3');
-							echo $moein_style;
 							echo style_slider();
 							//moein )
-							if ( $attachment_ids && has_post_thumbnail($product_id) ) {
+							
+							if ( $attachment_ids || has_post_thumbnail($product_id) ) {
 								//moein class added
 								// echo '<div class="moein-product-gallery slider-nav" id="product-thumbnails-carousel">';
 								$image         	= wp_get_attachment_image($post_thumbnail_id, $image_size,true);
@@ -294,11 +291,14 @@ class DTWCBE_Single_Product_Elementor{
 								echo '<div class="woo-slider-img">';
 								
 								//Add main image to slider
-								echo '
-								<div class="mySlides img-size">
-									' . $image . '
-								</div>
-								';
+								console(strpos($image,'default.png'));
+								if(strpos($image,'default.png') <= 0){
+									echo '
+									<div class="mySlides img-size">
+										' . $image . '
+									</div>
+									';
+								}
 
 								
 								//Add gallery image to slider
@@ -325,23 +325,31 @@ class DTWCBE_Single_Product_Elementor{
 								</div>
 								';
 
+								//add thumbnail div images
 								echo '<div class="row">';
 
 
 								//add class: demo cursor
-								$image_main_slider = str_replace('class="','onclick="currentSlide(1)" class="demo cursor ',$image);
-								echo '
-								<div class="column">
-									' . $image_main_slider .'
-								</div>
-								';
+								if(strpos($image,'default.png') <= 0){
+									$image_main_slider = str_replace('class="','onclick="currentSlide(1)" class="demo cursor ',$image);
+									echo '
+									<div class="column">
+										' . $image_main_slider .'
+									</div>
+									';
+								}
 								$i = 2;
 								foreach ( $attachment_ids as $attachment_id ) {
 									$thumbnail_image    = wp_get_attachment_image($attachment_id, $image_size);
 
 									//add class: demo cursor
-									$thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
-									echo '<div class="column">' . $thumbnail_image . '</div>';
+									console( '(' . boolval(strpos($thumbnail_image,'default.png')) . ')' , 'strpos($thumbnail_image)');
+									if(boolval(strpos($thumbnail_image,'default.png')) == false){
+										$thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
+										echo '<div class="column">' . $thumbnail_image . '</div>';
+										console('$thumbnail_image 11');
+										console($thumbnail_image);
+									}
 									$i++;
 								}
 
@@ -349,7 +357,12 @@ class DTWCBE_Single_Product_Elementor{
 							}else{
 								//show img one img
 								$image_main = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'single-post-thumbnail' );
-								echo '<div class="woo-slider-img"><div class="mySlides img-size"><img src="' . $image_main[0] . '"/> </div></div>';
+								console($image_main);
+								if($image_main)
+									echo '<div class="woo-slider-img"><div class="mySlides img-size"><img src="' . $image_main[0] . '"/> </div></div>';
+								// else
+								// 	echo '<div class="woo-slider-img"><div class="mySlides img-size"><img src=""/> </div></div>';
+
 							}
 							console('4');
 							echo script_slider();
@@ -939,6 +952,8 @@ function style_slider ($tag_html = true) {
 			max-height: 500px !important;
 			width: 100% !important;
 			border-radius: 15px;
+			object-fit: cover;
+		  }
 		}
 		/*
 		.moein-product-gallery img{

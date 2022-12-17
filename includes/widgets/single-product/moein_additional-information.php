@@ -214,12 +214,14 @@ function getdata($contents)
 	return  $res;
 	// (var_dump($res));
 }
-function console($str){
-	echo '
-	<script>
-	console.log(`' . $str  .'`);
-	</script>
-	';
+function console($str, $caption = ""){
+	if (isset($GLOBALS['moein-dev'])) {
+		echo '
+		<script>
+		console.log("moein-    ' . ($caption != "" ? $caption . ': ' : '') .  $str  .'");
+		</script>
+		';
+	}
 }
 //moein )
 
