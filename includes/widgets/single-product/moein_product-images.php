@@ -155,6 +155,7 @@ class DTWCBE_Single_Product_Image_Widget_moein extends \Elementor\Widget_Base {
 				'options' => [
 					'' => esc_html__( 'Theme default', 'woocommerce-builder-elementor' ),
 					'gallery-slider' => esc_html__( 'Gallery Slider', 'woocommerce-builder-elementor' ),
+					'gallery-slider-2' => ' گالری اسلایدر دو',//moein added
 				],
 				'default' => '',
 			]
