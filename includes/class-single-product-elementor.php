@@ -186,7 +186,7 @@ class DTWCBE_Single_Product_Elementor{
 		switch ( $element ){
 			case 'single-product-images':
 				ob_start();
-				$GLOBALS['moein-dev'] = true;
+				// $GLOBALS['moein-dev'] = true;
 				$product_gallery_type = $settings['product_gallery_type']; // Theme default || Gallery Slider ( Horizontal - Vertical )
 				
 				if( $product_gallery_type == 'gallery-slider' ){
