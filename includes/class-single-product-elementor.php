@@ -1077,6 +1077,7 @@ function style_slider_2 ($tag_html = true) {
 		}
 
 		.row{
+			display:none;
 			position: absolute;
 			padding-top: 10px;
 			left: 20%;
