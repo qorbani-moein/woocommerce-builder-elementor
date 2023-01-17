@@ -347,7 +347,7 @@ class DTWCBE_Single_Product_Elementor{
 									if(boolval(strpos($thumbnail_image,'default.png')) == false){
 										$thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
 										echo '<div class="column">' . $thumbnail_image . '</div>';
-										console('$thumbnail_image 11');
+										console('$thumbnail_image 11 slider 1');
 										console($thumbnail_image);
 									}
 									$i++;
@@ -554,7 +554,7 @@ class DTWCBE_Single_Product_Elementor{
 									if(boolval(strpos($thumbnail_image,'default.png')) == false){
 										// $thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
 										echo '<div class="column"><a ' . $gallery_elementor . ' href="' . $src_img[5] . '">' . $thumbnail_image . '</a></div>';
-										console('$thumbnail_image 11');
+										console('$thumbnail_image 11 slider 2');
 										console($thumbnail_image);
 									}
 									$i++;
