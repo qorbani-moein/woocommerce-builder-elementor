@@ -1090,12 +1090,15 @@ function style_slider_2 ($tag_html = true) {
 		/* Six columns side by side */
 		.column {
 			/* position: absulot;
-		float: left; */
-		width: 20%;
-		padding: 2px;
-		max-width: 200px;
-		height: 100px;
-		width: 100px;
+			float: left; */
+			width: 20%;
+			padding: 2px;
+			max-width: 200px;
+			height: 100px;
+			width: 100px;
+			border: 1px solid #cdcdcd;
+			border-radius: 15px;
+			margin-right: 5px;
 		}
 		
 		.column img{
