@@ -186,7 +186,7 @@ class DTWCBE_Single_Product_Elementor{
 		switch ( $element ){
 			case 'single-product-images':
 				ob_start();
-				// $GLOBALS['moein-dev'] = true;
+				$GLOBALS['moein-dev'] = true;
 				$product_gallery_type = $settings['product_gallery_type']; // Theme default || Gallery Slider ( Horizontal - Vertical )
 				
 				if( $product_gallery_type == 'gallery-slider' ){
@@ -528,12 +528,12 @@ class DTWCBE_Single_Product_Elementor{
 									console($src_img[6]);
 									console($src_img[7]);
 
-									echo '
-									<div class="column">
-										<a href="' . $src_img[5] . '">' . $image_main_slider .'
-										</a>
-									</div>
-									';
+									// echo '
+									// <div class="column">
+									// 	<a href="' . $src_img[5] . '">' . $image_main_slider .'
+									// 	</a>
+									// </div>
+									// ';
 								}
 								$i = 2;
 								foreach ( $attachment_ids as $attachment_id ) {
@@ -1039,8 +1039,8 @@ function style_slider_2 ($tag_html = true) {
 	$return_style = '
 		/* Position the image woo-slider-img (needed to position the left and right arrows) */
 		.woo-slider-img {
-		
-		position: relative;
+			padding-bottom: 100px;
+			position: relative;
 		}
 
 		/* Hide the images by default */
@@ -1089,11 +1089,15 @@ function style_slider_2 ($tag_html = true) {
 		.column {
 			/* position: absulot;
 		float: left; */
-		width: 10%;
+		width: 20%;
 		padding: 2px;
-		
+		max-width: 200px;
 		}
-
+		
+		.column img{
+			height: 100% !important;
+		}
+		
 		/* Add a transparency effect for thumnbail images */
 		.demo {
 		opacity: 0.6;
@@ -1134,8 +1138,8 @@ function style_slider ($tag_html = true) {
 	$return_style = '
 		/* Position the image woo-slider-img (needed to position the left and right arrows) */
 		.woo-slider-img {
-		
-		position: relative;
+			padding-bottom: 100px;
+			position: relative;
 		}
 
 		/* Hide the images by default */
@@ -1231,11 +1235,15 @@ function style_slider ($tag_html = true) {
 		.column {
 			/* position: absulot;
 		float: left; */
-		width: 10%;
+		width: 20%;
 		padding: 2px;
-		
+		max-width: 200px;
 		}
 
+		.column img{
+			height: 100% !important;
+		  }
+		
 		/* Add a transparency effect for thumnbail images */
 		.demo {
 		opacity: 0.6;
