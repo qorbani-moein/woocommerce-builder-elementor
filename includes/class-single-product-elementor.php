@@ -1094,10 +1094,13 @@ function style_slider_2 ($tag_html = true) {
 		width: 20%;
 		padding: 2px;
 		max-width: 200px;
+		height: 100px;
+		width: 100px;
 		}
 		
 		.column img{
 			height: 100% !important;
+			object-fit: contain;
 		}
 		
 		/* Add a transparency effect for thumnbail images */
