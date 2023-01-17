@@ -549,11 +549,7 @@ class DTWCBE_Single_Product_Elementor{
 									// console($src_img[7]);
 									//add class: demo cursor
 									// console( '(' . boolval(strpos($thumbnail_image,'default.png')) . ')' , 'strpos($thumbnail_image)');
-									$gallery_elementor = '
-									data-elementor-open-lightbox="yes"
-									data-elementor-lightbox-slideshow="all-aaac984"
-									data-elementor-lightbox-title=""
-									';
+									$gallery_elementor = 'data-elementor-open-lightbox="yes" data-elementor-lightbox-slideshow="all-aaac984" data-elementor-lightbox-title=""';
 
 									if(boolval(strpos($thumbnail_image,'default.png')) == false){
 										// $thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
