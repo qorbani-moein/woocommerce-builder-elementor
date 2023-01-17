@@ -549,9 +549,15 @@ class DTWCBE_Single_Product_Elementor{
 									// console($src_img[7]);
 									//add class: demo cursor
 									// console( '(' . boolval(strpos($thumbnail_image,'default.png')) . ')' , 'strpos($thumbnail_image)');
+									$gallery_elementor = '
+									data-elementor-open-lightbox="yes"
+									data-elementor-lightbox-slideshow="all-aaac984"
+									data-elementor-lightbox-title=""
+									';
+
 									if(boolval(strpos($thumbnail_image,'default.png')) == false){
 										// $thumbnail_image = str_replace('class="','onclick="currentSlide(' . $i . ')" class="demo cursor ',$thumbnail_image);
-										echo '<div class="column"><a href="' . $src_img[5] . '">' . $thumbnail_image . '</a></div>';
+										echo '<div class="column"><a ' . $gallery_elementor . ' href="' . $src_img[5] . '">' . $thumbnail_image . '</a></div>';
 										console('$thumbnail_image 11');
 										console($thumbnail_image);
 									}
@@ -1077,7 +1083,7 @@ function style_slider_2 ($tag_html = true) {
 		}
 
 		.row{
-			display:none;
+			display:none !important;
 			position: absolute;
 			padding-top: 10px;
 			left: 20%;
