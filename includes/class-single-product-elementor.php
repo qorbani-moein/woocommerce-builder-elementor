@@ -219,11 +219,10 @@ class DTWCBE_Single_Product_Elementor{
 						$gallery_thumbs_vertical,
 					) );
 
-					console('1');
+					console('gallery-slider 1');
 					?>
 					<div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
 							<?php 
-							console('2');
 							if ( $product->get_image_id() ) {
 								//echo '<div id="product-image-slider" class="slider-for woocommerce-product-gallery__wrapper">';
 								$data_attachment = wc_get_product_attachment_props($post_thumbnail_id);
@@ -412,11 +411,10 @@ class DTWCBE_Single_Product_Elementor{
 						$gallery_thumbs_vertical,
 					) );
 
-					console('1');
+					console('gallery-slider 2');
 					?>
 					<div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
 							<?php 
-							console('2');
 							if ( $product->get_image_id() ) {
 								//echo '<div id="product-image-slider" class="slider-for woocommerce-product-gallery__wrapper">';
 								$data_attachment = wc_get_product_attachment_props($post_thumbnail_id);
@@ -510,6 +508,15 @@ class DTWCBE_Single_Product_Elementor{
 									// echo "</div>";
 								}
 
+
+
+								// add < > slider
+								echo '
+								<div class="moein_plusSlides">
+								<a class="prev" onclick="plusSlides(-1)">❮</a>
+								<a class="next" onclick="plusSlides(1)">❯</a>
+								</div>
+								';
 
 								//add thumbnail div images
 								echo '<div class="row">';
@@ -1047,7 +1054,7 @@ function style_slider_2 ($tag_html = true) {
 
 		/* Hide the images by default */
 		.mySlides {
-		display: none;
+		
 		}
 
 		/* Add a pointer when hovering over the thumbnail images */
@@ -1055,6 +1062,55 @@ function style_slider_2 ($tag_html = true) {
 		cursor: pointer;
 		}
 
+		
+		/* Next & previous buttons */
+		/*
+		.prev,
+		.next {
+		cursor: pointer;
+		position: absolute;
+		top: 40%;
+		width: auto;
+		padding: 16px;
+		margin-top: -50px;
+		color: white;
+		font-weight: bold;
+		font-size: 20px;
+		border-radius: 0 3px 3px 0;
+		user-select: none;
+		-webkit-user-select: none;
+		}
+		*/
+		.prev,
+		.next {
+			cursor: pointer;
+			position: absolute;
+			top: 40%;
+			font-size: 20px;
+			-webkit-user-select: none;
+			color: #101010 !important;
+			background: #EDEDED;
+			border-radius: 25px !important;
+			padding: 7px 17px 5px 17px;
+			margin: 0px 10px;
+			transition: 1s;
+		}
+
+		/* Position the "next button" to the right */
+		.next {
+		left: 0;
+		border-radius: 3px 0 0 3px;
+		}
+
+		/* On hover, add a black background color with a little bit see-through */
+		.prev:hover,
+		.next:hover {
+		// background-color: rgba(0, 0, 0, 0.8);
+		background-color: #96969699 !important;
+		color: #101010 !important;
+		}
+
+		
 		/* Number text (1/3 etc) */
 		.numbertext {
 		color: #f2f2f2;
